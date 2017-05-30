@@ -1,14 +1,14 @@
 {
-  "name": "react-simple-boilerplate",
-  "version": "1.0.0",
-  "description": "Simple and lightweight Boilerplate for ReactJS projects",
+  "name": "chatty-app",
+  "version": "0.0.0",
+  "description": "React project",
   "scripts": {
     "lint": "eslint --ext .jsx,.js src",
     "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/noahlotzer/react-simple-boilerplate.git"
+    "url": "https://github.com/sevenveils/React.git"
   },
   "keywords": [
     "react",
