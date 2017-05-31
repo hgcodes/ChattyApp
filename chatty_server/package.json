@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/sevenveils/chatty-app/issues"
   },
-  "homepage": "https://github.com/sevenveils/chatty-app#readme"
+  "homepage": "https://github.com/sevenveils/chatty-app#readme",
+  "dependencies": {
+    "node-uuid": "1.4.8"
+  }
 }

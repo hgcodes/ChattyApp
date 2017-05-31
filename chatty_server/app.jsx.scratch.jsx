@@ -9,27 +9,44 @@ class App extends Component {
     super(props);
     this.state = {
       currentUser: {name: "Bob"},
-      messages: []
+      messages: [
+        {
+          id: 1,
+          username: "Bob",
+          content: "Has anyone seen my marbles?",
+        },
+        {
+          id: 2,
+          username: "Anonymous",
+          content: "No, I think you lost them. You lost your marbles Bob. You lost them for good."
+        }
+      ]
     };
     this.addNewMessage = this.addNewMessage.bind(this);
   }
 
   componentDidMount() {
     this.socket = new WebSocket("ws://localhost:3001");
-    this.socket.onmessage = (message) => {
+//new code
+    function connectionEstablished() {
+      console.log('connectionEstablished');
 
-      const incomingObj = JSON.parse(message.data);
-      // console.log("message.data", message.data)
-      // console.log("Incoming Type:", incomingObj);
-      // console.log("this.state", this.state)
-      let notices = [];
-      notices = this.state.messages.concat(incomingObj);
-      // console.log(notices);
-      this.setState({ messages: notices });
-      // console.log('Received message:', message);
+      $('#typehere').on('input', function(e) {
+        const content = $(this).val():
+        ws.send(content);
+      });
+    }
+
+// new code
+
+
+    this.socket.onmessage = function(message) {
+      console.log('Received message from server:', message);// new line of code
+      console.log(message.data); // new line of code
+      $('#typehere').val(message.data); // new line of code
     };
 
-    this.socket.onopen = function(event) {
+    this.socket.onopen = () => {
       console.log('Connected to Server');
     };
   }
