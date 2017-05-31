@@ -10,11 +10,9 @@ constructor(props) {
     message: ''
   }
 
-
 this.onNameChange = this.onNameChange.bind(this);
 this.onContentChange = this.onContentChange.bind(this);
 this.onKeyDown = this.onKeyDown.bind(this);
-
 }
 
 onNameChange(event) {
@@ -32,8 +30,6 @@ onKeyDown(event) {
   if (event.charCode == 13) {
     this.props.newMessage(this.state.username, this.state.message);
   }
-
-
 }
 
   render() {

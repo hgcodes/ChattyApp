@@ -1,0 +1,19 @@
+{
+  "name": "chatty_server",
+  "version": "0.0.0",
+  "description": "WebSockets server for chatty-app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sevenveils/chatty-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sevenveils/chatty-app/issues"
+  },
+  "homepage": "https://github.com/sevenveils/chatty-app#readme"
+}
