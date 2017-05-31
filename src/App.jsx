@@ -32,9 +32,8 @@ class App extends Component {
     };
 
     this.socket.onopen = () => {
-      console.log('Connected');
-      this.socket.send('This message was sent to the server')
-    }
+      console.log('Connected to Server');
+    };
   }
 
   addNewMessage(name, content) {
@@ -43,6 +42,8 @@ class App extends Component {
       username: name,
       content: content
     };
+    this.socket.send(JSON.stringify(message));
+
     console.log(message);
     const newMessages = this.state.messages.concat(message);
     this.setState({messages: newMessages});
