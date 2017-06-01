@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/sevenveils/chatty-app#readme",
   "dependencies": {
-    "node-uuid": "1.4.8"
+    "node-uuid": "1.4.8",
+    "uuid-v4": "^0.1.0"
   }
 }

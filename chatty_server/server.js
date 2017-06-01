@@ -1,45 +1,53 @@
-const express = require('express');
-const SocketServer = require('ws').Server;
-const uuidV4 = require('uuid/v4');
+const express = require("express");
+const SocketServer = require("ws").Server;
+const uuidV1 = require("node-uuid");
 
-// Set the port to 3001
 const PORT = 3001;
 
-// Create a new express server
 const server = express()
-   // Make the express server serve static assets (html, javascript, css) from the /public folder
-  .use(express.static('public'))
-  .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${ PORT }`));
+  .use(express.static("public"))
+  .listen(PORT, "0.0.0.0", "localhost", () => console.log(`Listening on ${ PORT }`));
 
-// Create the WebSockets server
 const wss = new SocketServer({ server });
 
-// Set up a callback that will run when a client connects to the server
-// When a client connects they are assigned a socket, represented by
-// the ws parameter in the callback.
-
 wss.broadcast = function broadcast(data) {
+  const packet = JSON.stringify(data);
   wss.clients.forEach(function each(client) {
-      client.send(JSON.stringify(data));
-      // client.send(JSON.stringify(notification));
+    try {
+      client.send(packet);
+    }
+    catch(err) { console.error("Client left."); }
   });
 };
 
-wss.on("connection", function connection(ws) {
-  ws.on("message", function incoming(data) {
-
-    data = JSON.parse(data);
-    data.id = uuidV4()
+function handleMessage(data) {
+  data = JSON.parse(data);
+  data.id = uuidV1()
     if (data.type === "postNotification") {
       data.type = "incomingNotification"
     } else if (data.type === "postMessage") {
       data.type = "incomingMessage"
     } else {
-      data.type = "nonsense, please ignore";
+      data.type = "Invalid";
     }
-    // console.log("DESPAIR:", data)
-    wss.broadcast(data);
+  wss.broadcast(data);
+}
+
+function updateOnlineCount() {
+  wss.broadcast({
+    id: uuidV1(),
+    type: "onlineUsers",
+    onlineUsers: wss.clients.size
   });
-  // Set up a callback for when a client closes the socket. This usually means they closed their browser.
-  ws.on("close", () => console.log("Client disconnected"));
-});
+}
+
+function handleConnection(client) {
+  updateOnlineCount();
+  client.on("message", handleMessage);
+  client.on("close", () => {
+    console.log("Client disconnected");
+    updateOnlineCount();
+  });
+}
+
+wss.on("connection", handleConnection);

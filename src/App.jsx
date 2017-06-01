@@ -1,16 +1,17 @@
-import React, {Component} from 'react';
+import React, {Component} from "react";
 
-import ChatBar from './ChatBar.jsx';
-// import Message from './Message.jsx';
-import MessageList from './MessageList.jsx';
+import ChatBar from "./ChatBar.jsx";
+import NavBar from "./NavBar.jsx";
+import MessageList from "./MessageList.jsx";
 
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: '',
-      messages: []
+      currentUser: "",
+      messages: [],
+      onlineUsers: 0
     };
     this.addNewMessage = this.addNewMessage.bind(this);
     this.setNewUsername = this.setNewUsername.bind(this);
@@ -20,13 +21,18 @@ class App extends Component {
     this.socket = new WebSocket("ws://localhost:3001");
     this.socket.onmessage = (message) => {
       const incomingObj = JSON.parse(message.data);
-      let notices = [];
-      notices = this.state.messages.concat(incomingObj);
-      this.setState({ messages: notices });
+      switch(incomingObj.type) {
+        case "incomingMessage":
+        case "incomingNotification":
+        this.setState({ messages: this.state.messages.concat(incomingObj) });
+        break;
+      case "onlineUsers":
+        this.setState({ onlineUsers: incomingObj.onlineUsers });
+        break;
+      }
     };
-
     this.socket.onopen = function(event) {
-      console.log('Connected to Server');
+      console.log("Connected to Server");
     };
   }
 
@@ -36,14 +42,11 @@ class App extends Component {
       content: note
     }
     this.socket.send(JSON.stringify(notification));
-    console.log("Notification: ", notification);
   }
-
 
   setNewUsername(oldUsername, newUsername) {
     this.setState({ username: newUsername });
-    this.newNotification(`${oldUsername || 'Unknown'} changed their username to ${newUsername}`)
-    // notice that we now have a new username!  what a joy!
+    this.newNotification(`${oldUsername || "Unknown"} changed their username to ${newUsername}`)
   }
 
   addNewMessage(content) {
@@ -57,10 +60,8 @@ class App extends Component {
 
   render() {
     return (
-      <div className='messagecontainer'>
-          <nav className='navbar'>
-            <a href='/' className='navbar-brand'>Chatty</a>
-          </nav>
+      <div className="messagecontainer">
+        <NavBar onlineUsers={this.state.onlineUsers} />
         <MessageList messages={this.state.messages} />
         <ChatBar username={ this.state.username}
           newUsername={ this.setNewUsername }
