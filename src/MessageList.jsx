@@ -17,7 +17,7 @@ class MessageList extends Component {
 
     return (
       <main className="messages">
-        { messages}
+        {messages}
       </main>
     )
   }

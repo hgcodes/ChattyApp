@@ -2,6 +2,8 @@ const express = require("express");
 const SocketServer = require("ws").Server;
 const uuidV1 = require("node-uuid");
 
+const { postMessage, postNotification, usersOnline } = require('../messageTypes.js');
+
 const PORT = 3001;
 
 const server = express()
@@ -23,13 +25,13 @@ wss.broadcast = function broadcast(data) {
 function handleMessage(data) {
   data = JSON.parse(data);
   data.id = uuidV1()
-    if (data.type === "postNotification") {
-      data.type = "incomingNotification"
-    } else if (data.type === "postMessage") {
-      data.type = "incomingMessage"
-    } else {
-      data.type = "Invalid";
-    }
+  if (data.type === "postNotification") {
+    data.type = "incomingNotification"
+  } else if (data.type === "postMessage") {
+    data.type = "incomingMessage"
+  } else {
+    data.type = "Invalid";
+  }
   wss.broadcast(data);
 }
 

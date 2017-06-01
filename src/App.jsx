@@ -9,16 +9,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: "",
+      username: "Anonymous",
       messages: [],
       onlineUsers: 0
     };
-    this.addNewMessage = this.addNewMessage.bind(this);
-    this.setNewUsername = this.setNewUsername.bind(this);
   }
 
   componentDidMount() {
-    this.socket = new WebSocket("ws://localhost:3001");
+    this.socket = new WebSocket(`ws://${location.hostname}:3001`);
     this.socket.onmessage = (message) => {
       const incomingObj = JSON.parse(message.data);
       switch(incomingObj.type) {
@@ -44,12 +42,12 @@ class App extends Component {
     this.socket.send(JSON.stringify(notification));
   }
 
-  setNewUsername(oldUsername, newUsername) {
+  setNewUsername = (oldUsername, newUsername) => {
     this.setState({ username: newUsername });
     this.newNotification(`${oldUsername || "Unknown"} changed their username to ${newUsername}`)
   }
 
-  addNewMessage(content) {
+  addNewMessage = (content) => {
     const message = {
       username: this.state.username,
       content: content,
@@ -63,7 +61,7 @@ class App extends Component {
       <div className="messagecontainer">
         <NavBar onlineUsers={this.state.onlineUsers} />
         <MessageList messages={this.state.messages} />
-        <ChatBar username={ this.state.username}
+        <ChatBar username={this.state.username}
           newUsername={ this.setNewUsername }
           newMessage={ this.addNewMessage }/>
       </div>
