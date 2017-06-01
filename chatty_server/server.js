@@ -2,8 +2,6 @@ const express = require("express");
 const SocketServer = require("ws").Server;
 const uuidV1 = require("node-uuid");
 
-const { postMessage, postNotification, usersOnline } = require('../messageTypes.js');
-
 const PORT = 3001;
 
 const server = express()
