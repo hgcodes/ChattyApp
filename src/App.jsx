@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import ChatBar from './ChatBar.jsx';
-import Message from './Message.jsx';
+// import Message from './Message.jsx';
 import MessageList from './MessageList.jsx';
 
 
@@ -30,15 +30,27 @@ class App extends Component {
     };
   }
 
-  setNewUsername(username) {
-    this.setState({ username });
+  newNotification(note) {
+    const notification = {
+      type: "postNotification",
+      content: note
+    }
+    this.socket.send(JSON.stringify(notification));
+    console.log("Notification: ", notification);
+  }
+
+
+  setNewUsername(oldUsername, newUsername) {
+    this.setState({ username: newUsername });
+    this.newNotification(`${oldUsername || 'Unknown'} changed their username to ${newUsername}`)
     // notice that we now have a new username!  what a joy!
   }
 
   addNewMessage(content) {
     const message = {
       username: this.state.username,
-      content: content
+      content: content,
+      type: "postMessage"
     };
     this.socket.send(JSON.stringify(message));
   }

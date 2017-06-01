@@ -8,13 +8,13 @@ constructor(props) {
   this.state = {
     // username: this.props.username,
     username: '',
-    message: ''
+    message: '',
+    note: ''
   }
 
   this.onNameChange = this.onNameChange.bind(this);
   this.onContentChange = this.onContentChange.bind(this);
-  this.onMessageKeyDown = this.onMessageKeyDown.bind(this);
-  this.onUsernameKeyDown = this.onUsernameKeyDown.bind(this);
+
 }
 
 onNameChange(event) {
@@ -25,17 +25,15 @@ onContentChange(event) {
   this.setState({message: event.target.value});
 }
 
-onUsernameKeyDown(event) {
-  if (event.charCode == 13) {
-    this.props.newUsername(this.state.username);
+onUsernameChanged = (event) => {
+  if (event.type === 'blur' || (event.key && event.charCode == 13)) {
+    if(this.props.username !== this.state.username) {
+      this.props.newUsername(this.props.username, this.state.username);
+    }
   }
 }
 
-onUsernameBlur = (e) => {
-  this.props.newUsername(this.state.username);
-}
-
-onMessageKeyDown(event) {
+onMessageKeyDown = (event) => {
   if (event.charCode == 13) {
     this.props.newMessage(this.state.message);
     this.setState({message: ''});
@@ -49,9 +47,10 @@ onMessageKeyDown(event) {
           placeholder="Your Name (Optional)"
           value={ this.state.username }
           onChange={ this.onNameChange }
-          onKeyPress= {this.onUsernameKeyDown }
-          onBlur= {this.onUsernameBlur}
+          onKeyPress= {this.onUsernameChanged }
+          onBlur= {this.onUsernameChanged}
           />
+
         <input className="chatbar-message"
           placeholder="Type a message and hit ENTER"
           value={ this.state.message }

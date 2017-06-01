@@ -1,9 +1,16 @@
 import React, {Component} from 'react';
 
 class Message extends Component {
+  get MessageClass() {
+    switch(this.props.type) {
+      case "incomingMessage": return "message";
+      case "incomingNotification": return "notification";
+    }
+  }
+
   render() {
     return (
-      <div className="message" >
+      <div className={this.messageClass} >
         <span className="message-username">{this.props.username}</span>
         <span className="message-content">{this.props.content}</span>
       </div>
