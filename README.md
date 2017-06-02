@@ -6,9 +6,9 @@ Chatty is built with React, HTML, SCSS, Webpack, WebSocket, and Express.
 
 ## Final Product
 
-![""]()
-![""]()
-![""]()
+!["First User Chat"](https://raw.githubusercontent.com/sevenveils/chatty-app/17f147314c1c3a7ef7c983db4b4e5c891aa6201f/docs/line1.png)
+!["Second User Chat"](https://raw.githubusercontent.com/sevenveils/chatty-app/17f147314c1c3a7ef7c983db4b4e5c891aa6201f/docs/line2.png)
+
 
 ## Getting Started
 
