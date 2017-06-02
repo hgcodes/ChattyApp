@@ -5,6 +5,7 @@ class Message extends Component {
     switch(this.props.type) {
       case "incomingMessage": return "message";
       case "incomingNotification": return "notification";
+      // Changes message type based on whether it is notification or message
     }
   }
 

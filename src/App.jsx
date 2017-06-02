@@ -33,7 +33,7 @@ class App extends Component {
       console.log("Connected to Server");
     };
   }
-
+  // Tells the server what kind of message is arriving to tag it as a notification or a mesage
   newNotification(note) {
     const notification = {
       type: "postNotification",
@@ -46,7 +46,7 @@ class App extends Component {
     this.setState({ username: newUsername });
     this.newNotification(`${oldUsername || "Unknown"} changed their username to ${newUsername}`)
   }
-
+  // this is a function to create a new message and send it to the server to be broadcast to all users
   addNewMessage = (content) => {
     const message = {
       username: this.state.username,
@@ -55,7 +55,7 @@ class App extends Component {
     };
     this.socket.send(JSON.stringify(message));
   }
-
+  // This renders the username, message, any changes to username and the number of online users
   render() {
     return (
       <div className="messagecontainer">

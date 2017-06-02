@@ -9,7 +9,7 @@ const server = express()
   .listen(PORT, "0.0.0.0", "localhost", () => console.log(`Listening on ${ PORT }`));
 
 const wss = new SocketServer({ server });
-
+// Broadcasts messages to all users and the try/catch prevents the server from crashing
 wss.broadcast = function broadcast(data) {
   const packet = JSON.stringify(data);
   wss.clients.forEach(function each(client) {
@@ -19,7 +19,7 @@ wss.broadcast = function broadcast(data) {
     catch(err) { console.error("Client left."); }
   });
 };
-
+// Parses messages to add unique ID to each message and broadcasts message depending on its type
 function handleMessage(data) {
   data = JSON.parse(data);
   data.id = uuidV1()
@@ -32,7 +32,7 @@ function handleMessage(data) {
   }
   wss.broadcast(data);
 }
-
+// Updates number of online users based on open WebSocket connections (wss.clients.size)
 function updateOnlineCount() {
   wss.broadcast({
     id: uuidV1(),
@@ -40,7 +40,7 @@ function updateOnlineCount() {
     onlineUsers: wss.clients.size
   });
 }
-
+// Updates number of online users when WebSocket connection is opened or closed
 function handleConnection(client) {
   updateOnlineCount();
   client.on("message", handleMessage);

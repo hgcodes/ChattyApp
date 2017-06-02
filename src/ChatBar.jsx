@@ -8,18 +8,16 @@ class ChatBar extends Component {
       username: props.username,
       message: ''
     }
-    // this.onNameChange = this.onNameChange.bind(this);
-    // this.onContentChange = this.onContentChange.bind(this);
   }
-
+  // Allows username to be changed by user
   onNameChange = (event) => {
     this.setState({username: event.target.value});
   }
-
+  // Allows message field to be changed by user
   onContentChange = (event) => {
     this.setState({message: event.target.value});
   }
-
+  // Updates username field when changed by user
   onUsernameChanged = (event) => {
     if (event.type === 'blur' || event.key && event.charCode === 13) {
       if(this.props.username !== this.state.username) {
@@ -27,14 +25,14 @@ class ChatBar extends Component {
       }
     }
   }
-
+  // Resets message field to empty when user hits 'return' key
   onMessageKeyDown = (event) => {
     if (event.charCode === 13) {
       this.props.newMessage(this.state.message);
       this.setState({message: ''});
     }
   }
-
+  // Renders username and message
   render() {
     return (
       <footer className="chatbar">
