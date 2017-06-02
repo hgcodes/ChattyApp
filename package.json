@@ -1,14 +1,14 @@
 {
   "name": "chatty-app",
   "version": "0.0.0",
-  "description": "React project",
+  "description": "Single Page Application made with React, Webpack, Babel, and WebSockets",
   "scripts": {
     "lint": "eslint --ext .jsx,.js src",
     "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sevenveils/React.git"
+    "url": "https://github.com/sevenveils/chatty-app.git"
   },
   "keywords": [
     "react",
@@ -46,11 +46,8 @@
   },
   "dependencies": {
     "express": "4.15.3",
-    "jsxhint": "^0.15.1",
     "node-uuid": "1.4.8",
-    "nodemon": "^1.11.0",
     "react": "15.4.2",
-    "react-dom": "15.4.2",
     "ws": "3.0.0"
   }
 }
