@@ -21,10 +21,7 @@
   ],
   "author": "Noah-Jerome Lotzer <n.lotzer@neusta.de>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/noahlotzer/react-simple-boilerplate/issues"
-  },
-  "homepage": "https://github.com/noahlotzer/react-simple-boilerplate",
+  "homepage": "https://github.com/sevenveils/chatty-app.git",
   "engines": {
     "node": ">=6.0.0"
   },
@@ -46,8 +43,7 @@
   },
   "dependencies": {
     "express": "4.15.3",
-    "node-uuid": "1.4.8",
     "react": "15.4.2",
-    "ws": "3.0.0"
+    "react-dom": "15.4.2"
   }
 }

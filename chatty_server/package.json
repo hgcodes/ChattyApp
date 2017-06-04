@@ -1,9 +1,9 @@
 {
   "name": "chatty_server",
   "version": "0.0.0",
-  "description": "WebSockets server for chatty-app",
-  "main": "server.js",
+  "description": "",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -12,12 +12,9 @@
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sevenveils/chatty-app/issues"
-  },
-  "homepage": "https://github.com/sevenveils/chatty-app#readme",
   "dependencies": {
+    "express": "4.15.3",
     "node-uuid": "1.4.8",
-    "uuid-v4": "^0.1.0"
+    "ws": "3.0.0"
   }
 }
